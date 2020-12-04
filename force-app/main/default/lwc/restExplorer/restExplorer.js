@@ -5,6 +5,7 @@ const columns = [{ label: "Method", fieldName: "method", type: "text" }];
 export default class RestExplorer extends LightningElement {
   _selected = [];
 
+  error;
   columns = columns;
   data = [];
   options = [];
@@ -21,7 +22,6 @@ export default class RestExplorer extends LightningElement {
           };
         });
     } else if (error) {
-      this.options = undefined;
       this.error = error;
     }
   }
