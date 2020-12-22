@@ -1,3 +1,29 @@
 <template>
-    <P>documentation</P>
+    <lightning-card>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item>
+                <h1>Endpoints</h1>
+                <lightning-datatable
+                    key-field="methodDef"
+                    data={data}
+                    columns={columns}
+                    onrowselection={getSelectedRow}
+                    max-row-selection="1"
+                >
+                </lightning-datatable>
+            </lightning-layout-item>
+            <lightning-layout-item>
+                <h1>URL</h1>
+                <br />
+                <p>method /services/apexrest/endpoint</p>
+            </lightning-layout-item>
+            <lightning-layout-item>
+                <h1>Request Body</h1>
+            </lightning-layout-item>
+            <lightning-layout-item>
+                <h1>Response Format</h1>
+            </lightning-layout-item>
+            <lightning-layout-item></lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
 </template>

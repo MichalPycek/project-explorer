@@ -1,3 +1,37 @@
 <template>
-    <p>playground</p>
+    <lightning-card>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" padding="around-small">
+                <lightning-radio-group
+                    name="radioGroup"
+                    label="Method"
+                    options={options}
+                    value={value}
+                    type="radio"
+                ></lightning-radio-group>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
+                <lightning-input type="text" label="Parameters"> </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
+                <lightning-textarea value={requstBody} label="Request" maxlength="300"></lightning-textarea>
+            </lightning-layout-item>
+            <br />
+            <lightning-layout-item size="12" padding="around-small">
+                <template if:false={waitningForResponse}>
+                    <button class="slds-button slds-button_brand" onclick={getResponseData}>Send Request</button>
+                </template>
+                <template if:true={waitningForResponse}>
+                    <lightning-spinner size="small"></lightning-spinner>
+                </template>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <p>Status Code:</p>
+                <pre>{responseStatusCode}</pre>
+                <br />
+                <p>Response Body:</p>
+                <code>{responseBody}</code>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
 </template>
