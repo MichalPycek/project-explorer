@@ -1,21 +1,8 @@
 <template>
-  <lightning-card>
-    <lightning-layout multiple-rows>
-      <lightning-layout-item size="12">
-        <lightning-dual-listbox
-          name="languages"
-          label="Select Languages"
-          source-label="Available"
-          selected-label="Selected"
-          field-level-help="Select your preferred languages"
-          options={options}
-          onchange={handleChange}
-        ></lightning-dual-listbox>
-      </lightning-layout-item>
-      <lightning-layout-item size="12">
-        <lightning-datatable key-field="id" data={data} columns={columns}>
-        </lightning-datatable>
-      </lightning-layout-item>
-    </lightning-layout>
-  </lightning-card>
+    <lightning-card>
+        <p>parent component</p>
+        <c-class-list></c-class-list>
+        <c-rest-documentation></c-rest-documentation>
+        <c-rest-playground></c-rest-playground>
+    </lightning-card>
 </template>
