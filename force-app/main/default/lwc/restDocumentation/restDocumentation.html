@@ -2,18 +2,19 @@
     <lightning-card>
         <lightning-layout multiple-rows>
             <lightning-layout-item>
-                <h1>Endpoints</h1>
+                <h1 onclick={handleChange}>Endpoints</h1>
                 <lightning-datatable
                     key-field="methodDef"
-                    data={data}
+                    data={selectedClassData}
                     columns={columns}
                     onrowselection={getSelectedRow}
                     max-row-selection="1"
+                    onchange={handleChange}
                 >
                 </lightning-datatable>
             </lightning-layout-item>
             <lightning-layout-item>
-                <h1>URL</h1>
+                <h1>URL {selectedApexClass}</h1>
                 <br />
                 <p>method /services/apexrest/endpoint</p>
             </lightning-layout-item>

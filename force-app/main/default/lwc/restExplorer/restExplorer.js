@@ -1,14 +1,9 @@
-import { LightningElement, wire, track } from 'lwc';
-
-
+import { LightningElement, track } from 'lwc';
 
 export default class RestExplorer extends LightningElement {
-    
-    selectedApexClass;
+    @track selectedApexClass;
 
-    handleSelectedClass(e){
+    handleSelectedClass(e) {
         this.selectedApexClass = e.detail;
-        console.log('PAKAL PARENT selectedClass',this.selectedApexClass.label);
     }
-
 }

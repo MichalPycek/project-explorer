@@ -31,8 +31,6 @@ export default class RestPlayground extends LightningElement {
 
     async getResponseData() {
         this.waitningForResponse = true;
-        console.log('click');
-        console.log('SZPAK  this.requestParams', this.requestParams);
         await makeRestCallout({
             endpoint: this.requestParams.endpoint,
             type: this.requestParams.type,
