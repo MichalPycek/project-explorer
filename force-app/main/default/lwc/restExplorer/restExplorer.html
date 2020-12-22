@@ -1,8 +1,16 @@
 <template>
     <lightning-card>
-        <p>parent component</p>
-        <c-class-list></c-class-list>
-        <c-rest-documentation></c-rest-documentation>
-        <c-rest-playground></c-rest-playground>
+        <lightning-layout horizontal-align="true">
+            <p>parent component</p>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <c-class-list></c-class-list>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <c-rest-documentation></c-rest-documentation>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <c-rest-playground></c-rest-playground>
+            </lightning-layout-item>
+        </lightning-layout>
     </lightning-card>
 </template>
