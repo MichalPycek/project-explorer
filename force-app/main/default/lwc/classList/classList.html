@@ -1,3 +1,17 @@
 <template>
-    <p>list</p>
+    <div class="slds-m-top_medium slds-m-bottom_x-large">
+        <h2 class="slds-text-heading_medium slds-m-bottom_medium">
+            REST Classes
+        </h2>
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" label="Filter" value={filterInput} onchange={handleFilter}></lightning-input>
+        </div>
+    </div>
+    <lightning-vertical-navigation onselect={handleItemSelect}>
+        <lightning-vertical-navigation-section label="REST Classes" >
+            <template for:each={classOptions} for:item='option' >
+                <lightning-vertical-navigation-item key={option.value} label={option.label} name={option.label} ></lightning-vertical-navigation-item>
+            </template>
+        </lightning-vertical-navigation-section>
+    </lightning-vertical-navigation>
 </template>
