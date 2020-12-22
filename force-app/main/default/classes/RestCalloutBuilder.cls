@@ -4,7 +4,7 @@ public with sharing class RestCalloutBuilder {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         HttpResponse response = new HttpResponse();
-        String sfdcBaseURL = 'callout:workbenchNE/services/apexrest' + endpoint;
+        String sfdcBaseURL = 'callout:workbenchNE/' + endpoint;
         request.setEndpoint(sfdcBaseURL);
         request.setMethod(type.trim());
         request.setHeader('Content-Type', 'application/json;charset=UTF-8');

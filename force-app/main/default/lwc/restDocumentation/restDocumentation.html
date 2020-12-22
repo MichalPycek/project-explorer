@@ -1,30 +1,48 @@
 <template>
-    <lightning-card>
-        <lightning-layout multiple-rows>
-            <lightning-layout-item>
-                <h1 onclick={handleChange}>Endpoints</h1>
-                <lightning-datatable
-                    key-field="methodDef"
-                    data={selectedClassData}
-                    columns={columns}
-                    onrowselection={getSelectedRow}
-                    max-row-selection="1"
-                    onchange={handleChange}
-                >
-                </lightning-datatable>
-            </lightning-layout-item>
-            <lightning-layout-item>
-                <h1>URL {selectedApexClass}</h1>
-                <br />
-                <p>method /services/apexrest/endpoint</p>
-            </lightning-layout-item>
-            <lightning-layout-item>
-                <h1>Request Body</h1>
-            </lightning-layout-item>
-            <lightning-layout-item>
-                <h1>Response Format</h1>
-            </lightning-layout-item>
-            <lightning-layout-item></lightning-layout-item>
-        </lightning-layout>
-    </lightning-card>
+    <div>
+        <lightning-layout-item flexibility="auto" padding="around-small">
+            <div class="slds-m-top_medium slds-m-bottom_x-large">
+                <h2 class="slds-text-heading_medium slds-m-bottom_medium">Endpoints</h2>
+            </div>
+            <lightning-datatable
+                key-field="methodDef"
+                data={selectedClassData}
+                columns={columns}
+                onrowselection={getSelectedRow}
+                max-row-selection="1"
+            >
+            </lightning-datatable>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="around-small">
+            <div class="slds-m-top_medium slds-m-bottom_x-large">
+                <h2 class="slds-text-heading_medium slds-m-bottom_medium">URL</h2>
+            </div>
+            <br />
+            <template if:true={methodInfo}>
+                <p>{methodInfo.endpoint}</p>
+            </template>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="around-small">
+            <div class="slds-m-top_medium slds-m-bottom_x-large">
+                <h2 class="slds-text-heading_medium slds-m-bottom_medium">Request Body</h2>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="around-small">
+            <div class="slds-m-top_medium slds-m-bottom_x-large">
+                <h2 class="slds-text-heading_medium slds-m-bottom_medium">Response Format</h2>
+            </div>
+            <lightning-tabset>
+                <lightning-tab label="200">
+                    <pre><code>
+                    [{jsonSuccessContent}]
+                    </code></pre>
+                </lightning-tab>
+                <lightning-tab label="400" title="2nd tab extended title">
+                    <pre><code>
+                    [{jsonErrorContent}]
+                    </code></pre>
+                </lightning-tab>
+            </lightning-tabset>
+        </lightning-layout-item>
+    </div>
 </template>

@@ -3,7 +3,6 @@ import { LightningElement, api } from 'lwc';
 const columns = [
     { label: 'Method Type', fieldName: 'type', type: 'text', initialWidth: 100 },
     { label: 'Return', fieldName: 'returnValue', type: 'text', initialWidth: 100 },
-    { label: 'Parameters', fieldName: 'params', type: 'text', initialWidth: 150 },
     { label: 'Endpoint', fieldName: 'endpoint', type: 'text', initialWidth: 150 }
 ];
 
@@ -13,10 +12,21 @@ const CLASS_ANNOTATION = '@restresource';
 export default class RestDocumentation extends LightningElement {
     @api selectedApexClass;
     columns = columns;
-    methodInfo;
+    methodInfo = [];
+    jsonSuccessContent = JSON.stringify({ foo: 'sample', bar: 'sample' }, null, 4);
 
     getSelectedRow(e) {
         this.methodInfo = e.detail.selectedRows[0];
+        if (this.methodInfo) {
+            const selectedRowEvent = new CustomEvent('selectedrow', {
+                detail: {
+                    type: this.methodInfo.type,
+                    returnValue: this.methodInfo.returnValue,
+                    endpoint: this.methodInfo.endpoint
+                }
+            });
+            this.dispatchEvent(selectedRowEvent);
+        }
     }
 
     get selectedClassData() {
@@ -25,7 +35,7 @@ export default class RestDocumentation extends LightningElement {
             const allLines = this.selectedApexClass.body.split('\n');
             let classEndpoint;
             allLines.forEach((line) => {
-                let methodType, methodDefinition, methodReturnVal, methodParams;
+                let methodType, methodDefinition, methodReturnVal;
 
                 if (line.includes(CLASS_ANNOTATION)) {
                     classEndpoint = this.findEndpointInLine(line);
@@ -34,7 +44,6 @@ export default class RestDocumentation extends LightningElement {
                     methodType = line.substring(line.indexOf(METHOD_ANNOTATION) + 5, line[-1]);
                     methodDefinition = allLines[allLines.indexOf(line) + 1];
                     methodReturnVal = this.findReturnValInMethodDef(methodDefinition);
-                    methodParams = this.findParamsInMethodDef(methodDefinition);
                 }
 
                 if (classEndpoint && methodType) {
@@ -42,13 +51,13 @@ export default class RestDocumentation extends LightningElement {
                         type: methodType.toUpperCase(),
                         methodDef: methodDefinition,
                         returnValue: methodReturnVal,
-                        params: methodParams,
-                        endpoint: classEndpoint
+                        endpoint: 'services/apexrest' + classEndpoint
                     });
                 }
             });
             return tempDataArray;
         }
+
         return [];
     }
 
@@ -65,13 +74,5 @@ export default class RestDocumentation extends LightningElement {
         methodReturnVal.pop();
         methodReturnVal = methodReturnVal.join().trim();
         return methodReturnVal;
-    }
-
-    findParamsInMethodDef(methodDef) {
-        let methodParams = methodDef.substring(methodDef.indexOf('(') + 1, methodDef.indexOf(')'));
-        if (methodParams === ' ' || methodParams == null || methodParams === '') {
-            methodParams = 'No Input Parameters';
-        }
-        return methodParams;
     }
 }

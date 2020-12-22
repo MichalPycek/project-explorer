@@ -1,14 +1,17 @@
 <template>
     <lightning-card>
-        <lightning-layout horizontal-align="true">
-            <lightning-layout-item flexibility="auto" padding="around-small">
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="2" padding="around-small">
                 <c-class-list onselectedclass={handleSelectedClass}></c-class-list>
             </lightning-layout-item>
-            <lightning-layout-item flexibility="auto" padding="around-small">
-                <c-rest-documentation selected-apex-class={selectedApexClass}></c-rest-documentation>
+            <lightning-layout-item size="4" padding="around-small">
+                <c-rest-documentation
+                    selected-apex-class={selectedApexClass}
+                    onselectedrow={handleSelectedRow}
+                ></c-rest-documentation>
             </lightning-layout-item>
-            <lightning-layout-item flexibility="auto" padding="around-small">
-                <c-rest-playground></c-rest-playground>
+            <lightning-layout-item size="6" padding="around-small">
+                <c-rest-playground selected-apex-method={selectedApexMethod}></c-rest-playground>
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>
