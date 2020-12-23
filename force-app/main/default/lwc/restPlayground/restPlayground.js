@@ -17,18 +17,16 @@ export default class RestPlayground extends LightningElement {
     waitningForResponse = false;
     methodHasBody;
 
-    
     selectedRadioButton;
     requestEndpoint;
     returnValue;
+    requestBody;
 
     responseBody = 'No Body';
     responseStatusCode = 'No Status Code';
 
     @track response;
     @track error;
-
-    
 
     get selectedMethodType() {
         if (this.selectedApexMethod) {
@@ -41,12 +39,12 @@ export default class RestPlayground extends LightningElement {
     get selectedMethodEndpoint() {
         if (this.selectedApexMethod) {
             this.requestEndpoint = this.selectedApexMethod.endpoint;
-        } 
+        }
         return this.requestEndpoint;
     }
-    
+
     get selectedReturnValue() {
-        if(this.selectedApexMethod){
+        if (this.selectedApexMethod) {
             this.returnValue = this.selectedApexMethod.returnValue;
         } else {
             this.returnValue = '';
@@ -54,10 +52,8 @@ export default class RestPlayground extends LightningElement {
         return this.returnValue;
     }
 
-
-
     handleRadioChange(e) {
-        if(this.selectedApexMethod){
+        if (this.selectedApexMethod) {
             this.selectedApexMethod = undefined;
             this.dispatchEvent(UNSELECTDATATABLEEVENT);
         }
@@ -71,12 +67,16 @@ export default class RestPlayground extends LightningElement {
         }
     }
 
-    handleEndpointChange(e){
-        if(this.selectedApexMethod){
+    handleEndpointChange(e) {
+        if (this.selectedApexMethod) {
             this.selectedApexMethod = undefined;
             this.dispatchEvent(UNSELECTDATATABLEEVENT);
         }
         this.requestEndpoint = e.target.value;
+    }
+
+    handleBodyChange(e) {
+        this.requestBody = e.target.value;
     }
 
     submitDetails() {
@@ -86,15 +86,11 @@ export default class RestPlayground extends LightningElement {
 
     async getResponseData() {
         this.waitningForResponse = true;
-        
-        console.log('PAKAL selected endpoint ' + this.requestEndpoint);
-        console.log('PAKAL selected method type ' + this.selectedRadioButton);    
-        console.log('PAKAL selected return type ' + this.selectedReturnValue);
-
         await makeRestCallout({
             endpoint: this.selectedMethodEndpoint,
             type: this.selectedMethodType,
-            returnVal: this.selectedReturnValue
+            returnVal: this.selectedReturnValue,
+            body: this.requestBody
         })
             .then((result) => {
                 this.response = result;
