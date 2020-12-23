@@ -1,9 +1,9 @@
 import { LightningElement, api } from 'lwc';
 
 const columns = [
-    { label: 'Method Type', fieldName: 'type', type: 'text', initialWidth: 100 },
-    { label: 'Return', fieldName: 'returnValue', type: 'text', initialWidth: 100 },
-    { label: 'Endpoint', fieldName: 'endpoint', type: 'text', initialWidth: 150 }
+    { label: 'Method Type', fieldName: 'type', type: 'text', initialWidth: 130 },
+    { label: 'Return', fieldName: 'returnValue', type: 'text', initialWidth: 130 },
+    { label: 'Endpoint', fieldName: 'endpoint', type: 'text' }
 ];
 
 const METHOD_ANNOTATION = '@http';
