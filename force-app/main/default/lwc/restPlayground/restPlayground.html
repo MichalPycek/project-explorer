@@ -11,7 +11,12 @@
                 ></lightning-radio-group>
             </lightning-layout-item>
             <lightning-layout-item size="12" padding="around-small">
-                <lightning-input type="text" label="Endpoint" value={selectedMethodEndpoint}> </lightning-input>
+                <lightning-input 
+                    type="text" 
+                    label="Endpoint" 
+                    value={selectedMethodEndpoint}
+                    onchange={handleEndpointChange}
+                    > </lightning-input>
             </lightning-layout-item>
             <lightning-layout-item size="12" padding="around-small">
                 <template if:true={methodHasBody}>

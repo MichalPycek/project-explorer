@@ -15,18 +15,13 @@ export default class RestDocumentation extends LightningElement {
     methodInfo = [];
     jsonSuccessContent = JSON.stringify({ foo: 'sample', bar: 'sample' }, null, 4);
 
-    getSelectedRow(e) {
-        this.methodInfo = e.detail.selectedRows[0];
-        if (this.methodInfo) {
-            const selectedRowEvent = new CustomEvent('selectedrow', {
-                detail: {
-                    type: this.methodInfo.type,
-                    returnValue: this.methodInfo.returnValue,
-                    endpoint: this.methodInfo.endpoint
-                }
-            });
-            this.dispatchEvent(selectedRowEvent);
-        }
+    @api handleRowSelection(){
+        console.log('PAKAL: unselecting data table');
+        //Literally couldn't find any other way to deselect all rows
+        this.template.querySelector('lightning-datatable').maxRowSelection=0;
+        this.template.querySelector('lightning-datatable').maxRowSelection=1;
+ 
+        
     }
 
     get selectedClassData() {
@@ -59,6 +54,20 @@ export default class RestDocumentation extends LightningElement {
         }
 
         return [];
+    }
+
+    getSelectedRow(e) {
+        this.methodInfo = e.detail.selectedRows[0];
+        if (this.methodInfo) {
+            const selectedRowEvent = new CustomEvent('selectedrow', {
+                detail: {
+                    type: this.methodInfo.type,
+                    returnValue: this.methodInfo.returnValue,
+                    endpoint: this.methodInfo.endpoint
+                }
+            });
+            this.dispatchEvent(selectedRowEvent);
+        }
     }
 
     findEndpointInLine(currentLine) {
