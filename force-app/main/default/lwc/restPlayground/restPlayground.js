@@ -31,6 +31,7 @@ export default class RestPlayground extends LightningElement {
     get selectedMethodType() {
         if (this.selectedApexMethod) {
             this.selectedRadioButton = this.selectedApexMethod.type.trim();
+            this.methodHasBody = this.checkMethodHasBody(this.selectedRadioButton); 
         }
 
         return this.selectedRadioButton;
@@ -57,14 +58,8 @@ export default class RestPlayground extends LightningElement {
             this.selectedApexMethod = undefined;
             this.dispatchEvent(UNSELECTDATATABLEEVENT);
         }
-
         this.selectedRadioButton = e.target.value;
-
-        if (this.selectedRadioButton === 'GET' || this.selectedRadioButton === 'DELETE') {
-            this.methodHasBody = false;
-        } else {
-            this.methodHasBody = true;
-        }
+        this.methodHasBody = this.checkMethodHasBody(this.selectedRadioButton);
     }
 
     handleEndpointChange(e) {
@@ -82,6 +77,14 @@ export default class RestPlayground extends LightningElement {
     submitDetails() {
         this.responseBody = this.response.body;
         this.responseStatusCode = this.response.statusCode;
+    }
+
+    checkMethodHasBody(selectedMethod){
+        if (selectedMethod === 'GET' || selectedMethod === 'DELETE') {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     async getResponseData() {
