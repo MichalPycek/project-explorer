@@ -15,7 +15,7 @@ export default class RestDocumentation extends LightningElement {
     methodInfo = [];
     jsonSuccessContent = JSON.stringify({ foo: 'sample', bar: 'sample' }, null, 4);
 
-    @api handleRowSelection(){
+    @api handleRowUnselection(){
         console.log('PAKAL: unselecting data table');
         //Literally couldn't find any other way to deselect all rows
         this.template.querySelector('lightning-datatable').maxRowSelection=0;

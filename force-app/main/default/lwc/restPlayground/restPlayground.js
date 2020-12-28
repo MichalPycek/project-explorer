@@ -110,7 +110,7 @@ export default class RestPlayground extends LightningElement {
         this.waitningForResponse = false;
     }
 
-    async notifySpinnerLoading(isLoading){
+    notifySpinnerLoading(isLoading){
         this.isSpinnerLoading = isLoading;
         if(this.isSpinnerLoading){
             this.dispatchEvent(new CustomEvent("spinnerloading"));
