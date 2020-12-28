@@ -58,8 +58,10 @@ export default class RestPlayground extends LightningElement {
             this.selectedApexMethod = undefined;
             this.dispatchEvent(UNSELECTDATATABLEEVENT);
         }
+
         this.selectedRadioButton = e.target.value;
-        this.methodHasBody = this.checkMethodHasBody(this.selectedRadioButton);
+
+        this.methodHasBody = this.checkMethodHasBody(this.selectedRadioButton); 
     }
 
     handleEndpointChange(e) {
@@ -77,6 +79,7 @@ export default class RestPlayground extends LightningElement {
     submitDetails() {
         this.responseBody = this.response.body;
         this.responseStatusCode = this.response.statusCode;
+        this.notifySpinnerLoading(false)
     }
 
     checkMethodHasBody(selectedMethod){
@@ -88,6 +91,7 @@ export default class RestPlayground extends LightningElement {
     }
 
     async getResponseData() {
+        this.notifySpinnerLoading(true)
         this.waitningForResponse = true;
         await makeRestCallout({
             endpoint: this.selectedMethodEndpoint,
@@ -105,4 +109,16 @@ export default class RestPlayground extends LightningElement {
 
         this.waitningForResponse = false;
     }
+
+    async notifySpinnerLoading(isLoading){
+        this.isSpinnerLoading = isLoading;
+        if(this.isSpinnerLoading){
+            this.dispatchEvent(new CustomEvent("spinnerloading"));
+        } else {
+            this.dispatchEvent(new CustomEvent("spinnerdoneloading"));
+        }
+    }
+
+
+
 }

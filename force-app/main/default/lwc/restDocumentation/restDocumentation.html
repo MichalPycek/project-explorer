@@ -4,7 +4,7 @@
       <lightning-layout-item flexibility="auto" padding="around-small">
         <div class="slds-m-top_medium slds-m-bottom_x-large">
           <h2 class="slds-text-heading_small slds-m-bottom_medium">
-            Endpoints
+            Available REST Methods
           </h2>
         </div>
         <lightning-datatable
@@ -17,10 +17,9 @@
         </lightning-datatable>
       </lightning-layout-item>
       <lightning-layout-item flexibility="auto" padding="around-small">
-        <div class="slds-m-top_medium slds-m-bottom_x-large">
-          <h2 class="slds-text-heading_small slds-m-bottom_medium">URL</h2>
+        <div class="slds-m-top_medium slds-m-bottom_x-medium">
+          <h2 class="slds-text-heading_small slds-m-bottom_medium">Endpoint</h2>
         </div>
-        <br />
         <template if:true={methodInfo}>
           <p>{methodInfo.endpoint}</p>
         </template>
@@ -54,10 +53,8 @@
     </div>
   </template>
   <template if:false={selectedApexClass}>
-    <div >
-      <h2 class="slds-text-heading_small slds-m-bottom_medium">
-        Select a REST resource to view documentation
-      </h2>
+    <div>
+      <i><h2 class="slds-text-heading_small slds-m-bottom_medium">Select a REST resource to view documentation</h2></i>
     </div>
   </template>
 </template>

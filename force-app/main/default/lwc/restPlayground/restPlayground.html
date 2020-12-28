@@ -29,14 +29,17 @@
                 ></lightning-textarea>
             </template>
         </lightning-layout-item>
+        <lightning-layout-item>
+            <div class="slds-m-around_medium">
+               
+            </div>
+        </lightning-layout-item>
     </lightning-layout>
     <lightning-layout-item size="12" padding="around-small">
         <template if:false={waitningForResponse}>
             <button class="slds-button slds-button_brand" onclick={getResponseData}>Send Request</button>
         </template>
-        <template if:true={waitningForResponse}>
-            <lightning-spinner size="small"></lightning-spinner>
-        </template>
+        
     </lightning-layout-item>
     <br />
     <lightning-layout-item padding="around-small">

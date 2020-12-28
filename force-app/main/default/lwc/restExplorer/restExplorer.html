@@ -12,28 +12,47 @@
                     <lightning-layout-item padding="around-small" size="2" class="slds-border_right">
                         <div class="page-section page-right">
                             <h2 class="slds-text-heading_medium slds-m-bottom_medium">Rest Resource List</h2>
-                            <c-class-list onselectedclass={handleSelectedClass} ></c-class-list>    
+                                <c-class-list 
+                                onselectedclass={handleSelectedClass} 
+                                onspinnerloading={handleSpinnerLoading}
+                                onspinnerdoneloading={handleSpinnerDoneLoading}
+                                >
+                                </c-class-list>    
                         </div>
                     </lightning-layout-item>
                     <lightning-layout-item padding="around-small" size="5" >
                         <div class="page-section page-main">
                             <h2 class="slds-text-heading_medium slds-m-bottom_medium">Class Documentation</h2>
-                            <c-rest-documentation
-                            selected-apex-class={selectedApexClass}
-                            onselectedrow={handleSelectedRow}
-                            ></c-rest-documentation>
+                                <c-rest-documentation
+                                selected-apex-class={selectedApexClass}
+                                onselectedrow={handleSelectedRow}
+                                onspinnerloading={handleSpinnerLoading}
+                                onspinnerdoneloading={handleSpinnerDoneLoading} 
+                                ></c-rest-documentation>
                         </div>
                     </lightning-layout-item>
                     <lightning-layout-item padding="around-small" size="5" class="slds-border_left">
                         <div class="page-section page-right">
                             <h2 class="slds-text-heading_medium slds-m-bottom_small">REST Playground</h2>
-                            <c-rest-playground selected-apex-method={selectedApexMethod} onunselectdatatable={handleUnselectDataTable}></c-rest-playground>
+                            <c-rest-playground 
+                            selected-apex-method={selectedApexMethod} 
+                            onunselectdatatable={handleUnselectDataTable}
+                            onspinnerloading={handleSpinnerLoading}
+                            onspinnerdoneloading={handleSpinnerDoneLoading}                           
+                            ></c-rest-playground>
                         </div>
                     </lightning-layout-item>
                 </lightning-layout>
             </lightning-layout-item>
         </lightning-layout>
+        <div if:true={isSpinnerLoading}>
+            <lightning-spinner
+              alternative-text="Loading"
+              variant="brand"
+            ></lightning-spinner>
+        </div>
     </lightning-card>
     </div>
+    
 
 </template>
