@@ -1,7 +1,7 @@
 @isTest(isParallel=true)
 public class RestExplorerControllerTest {
     @isTest
-    static void shouldGetAllApexClasses() {
+    private static void shouldGetAllApexClasses() {
         System.assertNotEquals(0,  RestExplorerController.getAllApexClasses().size());
     }
 }
