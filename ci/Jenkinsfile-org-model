@@ -3,7 +3,7 @@
 node {
 
     def SF_CONSUMER_KEY=env.SF_CONSUMER_KEY
-    def SF_USERNAME=env.SF_USERNAME
+    def SF_USERNAME=env.SF_DEV_USERNAME
     def SERVER_KEY_CREDENTIALS_ID=env.SERVER_KEY_CREDENTIALS_ID
     def DEPLOYDIR='src'
     def TEST_LEVEL='RunLocalTests'
@@ -30,16 +30,6 @@ node {
  	withEnv(["HOME=${env.WORKSPACE}"]) {	
 	
 	    withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
-        // -------------------------------------------------------------------------
-        // Fix for a location of the server.key.
-        // -------------------------------------------------------------------------
-
-        stage('Logout') {
-            rc = command "${toolbelt}/sfdx force:auth:logout -u ${SF_USERNAME} -p"
-            if (rc != 0) {
-                error 'Salesforce logout failed.'
-            }
-        }
         
 		// -------------------------------------------------------------------------
 		// Authenticate to Salesforce using the server key.
@@ -62,6 +52,17 @@ node {
 		    if (rc != 0) {
 			error 'Salesforce deploy and test run failed.'
 		    }
+		}
+
+		// -------------------------------------------------------------------------
+		// Fix for a location of the server.key.
+		// -------------------------------------------------------------------------
+
+		stage('Logout') {
+			rc = command "${toolbelt}/sfdx force:auth:logout -a -p"
+			if (rc != 0) {
+				error 'Salesforce logout failed.'
+			}
 		}
 
 
