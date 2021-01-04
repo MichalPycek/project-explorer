@@ -6,9 +6,9 @@ node {
 
     def SF_CONSUMER_KEY=env.SF_CONSUMER_KEY
     def SF_USERNAME=env.SF_USERNAME
-    def SERVER_KEY_CREDENTALS_ID=env.SERVER_KEY_CREDENTALS_ID
+    def SERVER_KEY_CREDENTIALS_ID=env.SERVER_KEY_CREDENTIALS_ID
     def TEST_LEVEL='RunLocalTests'
-    def PACKAGE_NAME='0Ho06000000TN1jCAG'
+    def PACKAGE_NAME='0Ho06000000TN1oCAG'
     def PACKAGE_VERSION
     def SF_INSTANCE_URL = env.SF_INSTANCE_URL ?: "https://login.salesforce.com"
 
@@ -30,7 +30,7 @@ node {
     
     withEnv(["HOME=${env.WORKSPACE}"]) {
         
-        withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
+        withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
             
             // -------------------------------------------------------------------------
             // Fix for a location of the server.key.
@@ -121,9 +121,9 @@ node {
 
             stage('Create Package Version') {
                 if (isUnix()) {
-                    output = sh returnStdout: true, script: "${toolbelt}/sfdx force:package:version:create --package ${PACKAGE_NAME} --installationkeybypass --wait 10 --json --targetdevhubusername HubOrg"
+                    output = sh returnStdout: true, script: "${toolbelt}/sfdx force:package:version:create --package ${PACKAGE_NAME} --installationkey rest1234 --wait 10 --json --targetdevhubusername HubOrg"
                 } else {
-                    output = bat(returnStdout: true, script: "${toolbelt}/sfdx force:package:version:create --package ${PACKAGE_NAME} --installationkeybypass --wait 10 --json --targetdevhubusername HubOrg").trim()
+                    output = bat(returnStdout: true, script: "${toolbelt}/sfdx force:package:version:create --package ${PACKAGE_NAME} --installationkey rest1234 --wait 10 --json --targetdevhubusername HubOrg").trim()
                     output = output.readLines().drop(1).join(" ")
                 }
 
@@ -170,7 +170,7 @@ node {
             // -------------------------------------------------------------------------
 
             stage('Install Package In Scratch Org') {
-                rc = command "${toolbelt}/sfdx force:package:install --package ${PACKAGE_VERSION} --targetusername installorg --wait 10"
+                rc = command "${toolbelt}/sfdx force:package:install --installationkey rest1234 --package ${PACKAGE_VERSION} --targetusername installorg --wait 10"
                 if (rc != 0) {
                     error 'Salesforce package install failed.'
                 }
