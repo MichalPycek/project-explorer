@@ -22,18 +22,6 @@ node {
     stage('checkout source') {
         checkout scm
     }
-    
-    // -------------------------------------------------------------------------
-    // Fix for a location of the server.key.
-    // -------------------------------------------------------------------------
-
-    stage('Logout') {
-        rc = command "${toolbelt}/sfdx force:auth:logout -u ${SF_USERNAME} -p"
-        if (rc != 0) {
-            error 'Salesforce logout failed.'
-        }
-    }
-
 
     // -------------------------------------------------------------------------
     // Run all the enclosed stages with access to the Salesforce
@@ -43,6 +31,17 @@ node {
     withEnv(["HOME=${env.WORKSPACE}"]) {
         
         withCredentials([file(credentialsId: SERVER_KEY_CREDENTALS_ID, variable: 'server_key_file')]) {
+            
+            // -------------------------------------------------------------------------
+            // Fix for a location of the server.key.
+            // -------------------------------------------------------------------------
+
+            stage('Logout') {
+                rc = command "${toolbelt}/sfdx force:auth:logout -u ${SF_USERNAME} -p"
+                if (rc != 0) {
+                    error 'Salesforce logout failed.'
+                }
+            }
 
             // -------------------------------------------------------------------------
             // Authorize the Dev Hub org with JWT key and give it an alias.
