@@ -37,7 +37,7 @@ node {
             // -------------------------------------------------------------------------
 
             stage('Logout') {
-                rc = command "${toolbelt}/sfdx force:auth:logout -u ${SF_USERNAME} -p"
+                rc = command "${toolbelt}/sfdx force:auth:logout -a -p"
                 if (rc != 0) {
                     error 'Salesforce logout failed.'
                 }
