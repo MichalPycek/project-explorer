@@ -22,6 +22,17 @@ node {
     stage('checkout source') {
         checkout scm
     }
+    
+    // -------------------------------------------------------------------------
+    // Fix for a location of the server.key.
+    // -------------------------------------------------------------------------
+
+    stage('Logout') {
+        rc = command "${toolbelt}/sfdx force:auth:logout -u ${SF_USERNAME} -p"
+        if (rc != 0) {
+            error 'Salesforce logout failed.'
+        }
+    }
 
 
     // -------------------------------------------------------------------------
