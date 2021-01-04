@@ -31,17 +31,6 @@ node {
     withEnv(["HOME=${env.WORKSPACE}"]) {
         
         withCredentials([file(credentialsId: SERVER_KEY_CREDENTIALS_ID, variable: 'server_key_file')]) {
-            
-            // -------------------------------------------------------------------------
-            // Fix for a location of the server.key.
-            // -------------------------------------------------------------------------
-
-            stage('Logout') {
-                rc = command "${toolbelt}/sfdx force:auth:logout -a -p"
-                if (rc != 0) {
-                    error 'Salesforce logout failed.'
-                }
-            }
 
             // -------------------------------------------------------------------------
             // Authorize the Dev Hub org with JWT key and give it an alias.
@@ -197,6 +186,17 @@ node {
                 rc = command "${toolbelt}/sfdx force:org:delete --targetusername installorg --noprompt"
                 if (rc != 0) {
                     error 'Salesforce package install scratch org deletion failed.'
+                }
+            }
+
+            // -------------------------------------------------------------------------
+            // Fix for a location of the server.key.
+            // -------------------------------------------------------------------------
+
+            stage('Logout') {
+                rc = command "${toolbelt}/sfdx force:auth:logout -a -p"
+                if (rc != 0) {
+                    error 'Salesforce logout failed.'
                 }
             }
         }
