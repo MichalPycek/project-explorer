@@ -1,0 +1,16 @@
+<template>
+    <div class="slds-p-around_small lgc-bg">
+        <lightning-input type="text" label="Filter" value={filterInput} onchange={handleFilter}></lightning-input>
+    </div>
+    <lightning-vertical-navigation onselect={handleItemSelect}>
+        <lightning-vertical-navigation-section >
+            <template for:each={classOptions} for:item="option">
+                <lightning-vertical-navigation-item
+                    key={option.value}
+                    label={option.label}
+                    name={option.label}
+                ></lightning-vertical-navigation-item>
+            </template>
+        </lightning-vertical-navigation-section>
+    </lightning-vertical-navigation>
+</template>

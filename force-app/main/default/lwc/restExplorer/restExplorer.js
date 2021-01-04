@@ -1,32 +1,29 @@
-import { LightningElement, wire } from "lwc";
-import getAllApexClasses from "@salesforce/apex/RestExplorerController.getAllApexClasses";
-const columns = [{ label: "Method", fieldName: "method", type: "text" }];
+import { LightningElement, track } from 'lwc';
 
 export default class RestExplorer extends LightningElement {
-  _selected = [];
+    @track selectedApexClass;
+    selectedApexMethod;
+    @track unselectDatatable;
+    isSpinnerLoading = false;
 
-  error;
-  columns = columns;
-  data = [];
-  options = [];
+    handleSpinnerLoading(){
+        this.isSpinnerLoading = true;
+    } 
 
-  @wire(getAllApexClasses)
-  apexClasses({ error, data }) {
-    if (data) {
-      this.options = data
-        .filter((apexClass) => apexClass.Body.includes("@RestResource"))
-        .map((apexClass) => {
-          return {
-            label: apexClass.Name,
-            value: apexClass.Id
-          };
-        });
-    } else if (error) {
-      this.error = error;
+    handleSpinnerDoneLoading(){
+        this.isSpinnerLoading = false;
     }
-  }
 
-  handleChange(e) {
-    this._selected = e.detail.value;
-  }
+    handleSelectedClass(e) {
+        this.selectedApexClass = e.detail;
+    }
+
+    handleSelectedRow(e) {
+        this.selectedApexMethod = e.detail;
+    }
+
+    handleUnselectDataTable(){
+        this.unselectDatatable = true;
+        this.template.querySelector("c-rest-documentation").handleRowUnselection();
+    }
 }

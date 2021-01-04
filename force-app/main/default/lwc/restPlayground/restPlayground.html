@@ -1,0 +1,56 @@
+<template>
+    <lightning-layout multiple-rows>
+        <lightning-layout-item size="12" padding="around-small">
+            <lightning-radio-group
+                name="radioGroup"
+                label="Method"
+                options={options}
+                value={selectedMethodType}
+                type="radio"
+                onchange={handleRadioChange}
+            ></lightning-radio-group>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" padding="around-small">
+            <lightning-input
+                type="text"
+                label="Endpoint"
+                value={selectedMethodEndpoint}
+                onchange={handleEndpointChange}
+            >
+            </lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" padding="around-small">
+            <template if:true={methodHasBody}>
+                <lightning-textarea
+                    label="Request body"
+                    maxlength="300"
+                    value={requestBody}
+                    onchange={handleBodyChange}
+                ></lightning-textarea>
+            </template>
+        </lightning-layout-item>
+        <lightning-layout-item>
+            <div class="slds-m-around_medium">
+               
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+    <lightning-layout-item size="12" padding="around-small">
+        <template if:false={waitningForResponse}>
+            <button class="slds-button slds-button_brand" onclick={getResponseData}>Send Request</button>
+        </template>
+        
+    </lightning-layout-item>
+    <br />
+    <lightning-layout-item padding="around-small">
+        <p>Status Code:</p>
+        <pre><code>
+                    {responseStatusCode}
+            </code></pre>
+        <br />
+        <p>Response Body:</p>
+        <pre><code>
+                    {responseBody}
+            </code></pre>
+    </lightning-layout-item>
+</template>

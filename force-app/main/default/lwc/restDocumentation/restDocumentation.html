@@ -1,0 +1,60 @@
+<template>
+  <template if:true={selectedApexClass}>
+    <div>
+      <lightning-layout-item flexibility="auto" padding="around-small">
+        <div class="slds-m-top_medium slds-m-bottom_x-large">
+          <h2 class="slds-text-heading_small slds-m-bottom_medium">
+            Available REST Methods
+          </h2>
+        </div>
+        <lightning-datatable
+          key-field="methodDef"
+          data={selectedClassData}
+          columns={columns}
+          onrowselection={getSelectedRow}
+          max-row-selection="1"
+        >
+        </lightning-datatable>
+      </lightning-layout-item>
+      <lightning-layout-item flexibility="auto" padding="around-small">
+        <div class="slds-m-top_medium slds-m-bottom_x-medium">
+          <h2 class="slds-text-heading_small slds-m-bottom_medium">Endpoint</h2>
+        </div>
+        <template if:true={methodInfo}>
+          <p>{methodInfo.endpoint}</p>
+        </template>
+      </lightning-layout-item>
+      <lightning-layout-item flexibility="auto" padding="around-small">
+        <div class="slds-m-top_medium slds-m-bottom_x-large">
+          <h2 class="slds-text-heading_small slds-m-bottom_medium">
+            Request Body
+          </h2>
+        </div>
+      </lightning-layout-item>
+      <lightning-layout-item flexibility="auto" padding="around-small">
+        <div class="slds-m-top_medium slds-m-bottom_x-large">
+          <h2 class="slds-text-heading_small slds-m-bottom_medium">
+            Response Format
+          </h2>
+        </div>
+        <lightning-tabset>
+          <lightning-tab label="200">
+            <pre><code>
+                    [{jsonSuccessContent}]
+                    </code></pre>
+          </lightning-tab>
+          <lightning-tab label="400" title="2nd tab extended title">
+            <pre><code>
+                    [{jsonErrorContent}]
+                    </code></pre>
+          </lightning-tab>
+        </lightning-tabset>
+      </lightning-layout-item>
+    </div>
+  </template>
+  <template if:false={selectedApexClass}>
+    <div>
+      <i><h2 class="slds-text-heading_small slds-m-bottom_medium">Select a REST resource to view documentation</h2></i>
+    </div>
+  </template>
+</template>
