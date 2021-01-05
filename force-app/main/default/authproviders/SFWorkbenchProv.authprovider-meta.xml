@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <consumerKey>3MVG9SOw8KERNN0_P_.rfqCdef4KIrm141CBjA7Izmk3aQ_CvvVrTLWsb9i_4wviFHvi2EtbdJVJ54oKQPeJf</consumerKey>
+    <consumerSecret>Y4JJKEkSiOK1P9yClCWAoGiDWtGdEyqCrLt2PE7vmLLDCy49z9a5OyXzot9xOw/51yxtlc5hqna8W7fogr/EmXBBGPdiC2rX</consumerSecret>
+    <defaultScopes>refresh_token full</defaultScopes>
+    <friendlyName>SFWorkbenchProv</friendlyName>
+    <includeOrgIdInIdentifier>true</includeOrgIdInIdentifier>
+    <providerType>Salesforce</providerType>
+    <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <sendSecretInApis>true</sendSecretInApis>
+</AuthProvider>
