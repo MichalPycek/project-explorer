@@ -5,7 +5,6 @@
     <label>Rest Callout App</label>
     <oauthConfig>
         <callbackUrl>https://polsource5-dev-ed.my.salesforce.com/services/authcallback/PawelREST</callbackUrl>
-        <consumerKey>3MVG9SOw8KERNN0_P_.rfqCdef4KIrm141CBjA7Izmk3aQ_CvvVrTLWsb9i_4wviFHvi2EtbdJVJ54oKQPeJf</consumerKey>
         <isAdminApproved>false</isAdminApproved>
         <isConsumerSecretOptional>false</isConsumerSecretOptional>
         <isIntrospectAllTokens>false</isIntrospectAllTokens>
