@@ -13,11 +13,28 @@ export default class RestDocumentation extends LightningElement {
     @api selectedApexClass;
     columns = columns;
     methodInfo = [];
-    jsonSuccessContent = JSON.stringify({ foo: 'sample', bar: 'sample' }, null, 4);
+    jsonSuccessContent = JSON.stringify(
+        {
+            status: 'success',
+            data: {
+                record: [{ id: 'string', field: 'string' }]
+            }
+        },
+        null,
+        4
+    );
+    jsonErrorContent = JSON.stringify(
+        {
+            status: 'error',
+            message: 'Error message'
+        },
+        null,
+        4
+    );
 
-    @api handleRowUnselection(){
-        this.template.querySelector('lightning-datatable').maxRowSelection=0;
-        this.template.querySelector('lightning-datatable').maxRowSelection=1;
+    @api handleRowUnselection() {
+        this.template.querySelector('lightning-datatable').maxRowSelection = 0;
+        this.template.querySelector('lightning-datatable').maxRowSelection = 1;
     }
 
     get selectedClassData() {
