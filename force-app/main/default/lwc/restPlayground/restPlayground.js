@@ -31,7 +31,7 @@ export default class RestPlayground extends LightningElement {
     get selectedMethodType() {
         if (this.selectedApexMethod) {
             this.selectedRadioButton = this.selectedApexMethod.type.trim();
-            this.methodHasBody = this.checkMethodHasBody(this.selectedRadioButton); 
+            this.methodHasBody = this.checkMethodHasBody(this.selectedRadioButton);
         }
 
         return this.selectedRadioButton;
@@ -61,7 +61,7 @@ export default class RestPlayground extends LightningElement {
 
         this.selectedRadioButton = e.target.value;
 
-        this.methodHasBody = this.checkMethodHasBody(this.selectedRadioButton); 
+        this.methodHasBody = this.checkMethodHasBody(this.selectedRadioButton);
     }
 
     handleEndpointChange(e) {
@@ -79,10 +79,10 @@ export default class RestPlayground extends LightningElement {
     submitDetails() {
         this.responseBody = this.response.body;
         this.responseStatusCode = this.response.statusCode;
-        this.notifySpinnerLoading(false)
+        this.notifySpinnerLoading(false);
     }
 
-    checkMethodHasBody(selectedMethod){
+    checkMethodHasBody(selectedMethod) {
         if (selectedMethod === 'GET' || selectedMethod === 'DELETE') {
             return false;
         } else {
@@ -91,7 +91,7 @@ export default class RestPlayground extends LightningElement {
     }
 
     async getResponseData() {
-        this.notifySpinnerLoading(true)
+        this.notifySpinnerLoading(true);
         this.waitningForResponse = true;
         await makeRestCallout({
             endpoint: this.selectedMethodEndpoint,
@@ -110,15 +110,12 @@ export default class RestPlayground extends LightningElement {
         this.waitningForResponse = false;
     }
 
-    notifySpinnerLoading(isLoading){
+    notifySpinnerLoading(isLoading) {
         this.isSpinnerLoading = isLoading;
-        if(this.isSpinnerLoading){
-            this.dispatchEvent(new CustomEvent("spinnerloading"));
+        if (this.isSpinnerLoading) {
+            this.dispatchEvent(new CustomEvent('spinnerloading'));
         } else {
-            this.dispatchEvent(new CustomEvent("spinnerdoneloading"));
+            this.dispatchEvent(new CustomEvent('spinnerdoneloading'));
         }
     }
-
-
-
 }

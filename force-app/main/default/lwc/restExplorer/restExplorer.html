@@ -1,58 +1,82 @@
 <template>
     <div class="c-container">
         <lightning-card>
-        <lightning-layout multiple-rows="true" horizontal-align="spread">
-            <lightning-layout-item padding="around-small" size="12">
-                <div class="page-section page-header">
-                    <h1 class="slds-text-heading_large slds-m-bottom_small">SF Workbench Project</h1>              
-                </div>
-            </lightning-layout-item>
-            <lightning-layout-item padding="around-small" size="12">
-                <lightning-layout>
-                    <lightning-layout-item padding="around-small" size="2" class="slds-border_right">
-                        <div class="page-section page-right">
-                            <h2 class="slds-text-heading_medium slds-m-bottom_medium">Rest Resource List</h2>
-                                <c-class-list 
-                                onselectedclass={handleSelectedClass} 
-                                onspinnerloading={handleSpinnerLoading}
-                                onspinnerdoneloading={handleSpinnerDoneLoading}
-                                >
-                                </c-class-list>    
-                        </div>
-                    </lightning-layout-item>
-                    <lightning-layout-item padding="around-small" size="5" >
-                        <div class="page-section page-main">
-                            <h2 class="slds-text-heading_medium slds-m-bottom_medium">Class Documentation</h2>
-                                <c-rest-documentation
-                                selected-apex-class={selectedApexClass}
-                                onselectedrow={handleSelectedRow}
-                                onspinnerloading={handleSpinnerLoading}
-                                onspinnerdoneloading={handleSpinnerDoneLoading} 
-                                ></c-rest-documentation>
-                        </div>
-                    </lightning-layout-item>
-                    <lightning-layout-item padding="around-small" size="5" class="slds-border_left">
-                        <div class="page-section page-right">
-                            <h2 class="slds-text-heading_medium slds-m-bottom_small">REST Playground</h2>
-                            <c-rest-playground 
-                            selected-apex-method={selectedApexMethod} 
+            <div class="page-section page-header">
+                <h1 class="slds-text-heading_large slds-m-bottom_small slds-p-left_small">SF Workbench Project</h1>
+            </div>
+            <lightning-layout multiple-rows="true" horizontal-align="spread">
+                <lightning-layout-item
+                    padding="around-small"
+                    size="12"
+                    small-device-size="12"
+                    medium-device-size="4"
+                    large-device-size="2"
+                >
+                    <div class="page-section page-right">
+                        <h2
+                            class="slds-text-heading_medium slds-m-bottom_medium slds-text-color_inverse"
+                            style="padding: 0.5rem; border-radius: 4px; background: var(--lwc-brandAccessible)"
+                        >
+                            Rest Resource List
+                        </h2>
+                        <c-class-list
+                            onselectedclass={handleSelectedClass}
+                            onspinnerloading={handleSpinnerLoading}
+                            onspinnerdoneloading={handleSpinnerDoneLoading}
+                        >
+                        </c-class-list>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item
+                    padding="around-small"
+                    size="12"
+                    small-device-size="12"
+                    medium-device-size="8"
+                    large-device-size="5"
+                    class="slds-border_left"
+                >
+                    <div class="page-section page-main">
+                        <h2
+                            class="slds-text-heading_medium slds-m-bottom_medium slds-text-color_inverse"
+                            style="padding: 0.5rem; border-radius: 4px; background: var(--lwc-brandAccessible)"
+                        >
+                            Class Documentation
+                        </h2>
+                        <c-rest-documentation
+                            selected-apex-class={selectedApexClass}
+                            onselectedrow={handleSelectedRow}
+                            onspinnerloading={handleSpinnerLoading}
+                            onspinnerdoneloading={handleSpinnerDoneLoading}
+                        ></c-rest-documentation>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item
+                    padding="around-small"
+                    size="12"
+                    small-device-size="12"
+                    medium-device-size="12"
+                    large-device-size="5"
+                    class="slds-border_left"
+                >
+                    <div class="page-section page-right">
+                        <h2
+                            class="slds-text-heading_medium slds-m-bottom_medium slds-text-color_inverse"
+                            style="padding: 0.5rem; border-radius: 4px; background: var(--lwc-brandAccessible)"
+                        >
+                            REST Playground
+                        </h2>
+                        <c-rest-playground
+                            selected-apex-method={selectedApexMethod}
                             onunselectdatatable={handleUnselectDataTable}
                             onspinnerloading={handleSpinnerLoading}
-                            onspinnerdoneloading={handleSpinnerDoneLoading}                           
-                            ></c-rest-playground>
-                        </div>
-                    </lightning-layout-item>
-                </lightning-layout>
-            </lightning-layout-item>
-        </lightning-layout>
-        <div if:true={isSpinnerLoading}>
-            <lightning-spinner
-              alternative-text="Loading"
-              variant="brand"
-            ></lightning-spinner>
-        </div>
-    </lightning-card>
+                            onspinnerdoneloading={handleSpinnerDoneLoading}
+                        ></c-rest-playground>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+            <div if:true={isSpinnerLoading}>
+                <lightning-spinner alternative-text="Loading" variant="brand"></lightning-spinner>
+            </div>
+        </lightning-card>
     </div>
-    
-
 </template>
