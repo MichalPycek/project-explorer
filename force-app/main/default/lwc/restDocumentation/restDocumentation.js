@@ -1,8 +1,8 @@
 import { LightningElement, api } from 'lwc';
 
 const columns = [
-    { label: 'Method Type', fieldName: 'type', type: 'text', initialWidth: 100 },
-    { label: 'Return', fieldName: 'returnValue', type: 'text', initialWidth: 80 },
+    { label: 'Method', fieldName: 'type', type: 'text', initialWidth: 90 },
+    { label: 'Return Type', fieldName: 'returnValue', type: 'text', initialWidth: 130 },
     { label: 'Endpoint', fieldName: 'endpoint', type: 'text'}
 ];
 
@@ -12,7 +12,8 @@ const CLASS_ANNOTATION = '@restresource';
 export default class RestDocumentation extends LightningElement {
     @api selectedApexClass;
     columns = columns;
-    methodInfo = [];
+    methodInfo;
+    organisedParams = [];
     jsonSuccessContent = JSON.stringify(
         {
             status: 'success',
@@ -23,18 +24,15 @@ export default class RestDocumentation extends LightningElement {
         null,
         4
     );
-    jsonErrorContent = JSON.stringify(
-        {
-            status: 'error',
-            message: 'Error message'
-        },
-        null,
-        4
+    
+    jsonErrorContent = JSON.stringify({status: 'error',message: 'Error message'},
+        null,4
     );
 
-        this.template.querySelector('lightning-datatable').maxRowSelection = 1;
-        this.template.querySelector('lightning-datatable').maxRowSelection = 0;
+        
     @api handleRowUnselection() {
+        this.template.querySelector('lightning-datatable').maxRowSelection = 0;
+        this.template.querySelector('lightning-datatable').maxRowSelection = 1;    
     }
 
     get selectedClassData() {
@@ -75,9 +73,7 @@ export default class RestDocumentation extends LightningElement {
                         endpoint: 'services/apexrest' + classEndpoint,
                         methodParameters: methodParams
                     });
-                    methodDefinition = undefined;
-                    methodType = undefined;
-                    methodParams = undefined;
+                    methodDefinition = methodType = methodParams = undefined;
                 }
             });
             
@@ -85,20 +81,6 @@ export default class RestDocumentation extends LightningElement {
         }
 
         return [];
-    }
-
-    getSelectedRow(e) {
-        this.methodInfo = e.detail.selectedRows[0];
-        if (this.methodInfo) {
-            const selectedRowEvent = new CustomEvent('selectedrow', {
-                detail: {
-                    type: this.methodInfo.type,
-                    returnValue: this.methodInfo.returnValue,
-                    endpoint: this.methodInfo.endpoint
-                }
-            });
-            this.dispatchEvent(selectedRowEvent);
-        }
     }
 
     findEndpointInLine(currentLine) {
@@ -146,5 +128,24 @@ export default class RestDocumentation extends LightningElement {
             } 
         }
         return currentParams + updatedParams.trim();
+    }
+
+    getSelectedRow(e) {
+        
+        this.methodInfo = e.detail.selectedRows[0];
+        if (this.methodInfo) {
+            const selectedRowEvent = new CustomEvent('selectedrow', {
+                detail: {
+                    type: this.methodInfo.type,
+                    returnValue: this.methodInfo.returnValue,
+                    endpoint: this.methodInfo.endpoint
+                }
+            });
+            this.dispatchEvent(selectedRowEvent);
+
+        this.organisedParams = this.methodInfo.methodParameters.split(',');
+        this.organisedParams = this.organisedParams.map(x => x.trim());
+        
+        }
     }
 }

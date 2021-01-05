@@ -2,11 +2,12 @@
   <template if:true={selectedApexClass}>
     <div>
       <lightning-layout-item flexibility="auto" padding="around-small">
-        <div class="slds-m-top_medium slds-m-bottom_x-large">
+        <div class="slds-m-top_small slds-m-bottom_large">
           <h2 class="slds-text-heading_small slds-m-bottom_medium">
             Available REST Methods
           </h2>
         </div>
+        <div class="slds-p-left_small">
         <lightning-datatable
           key-field="methodDef"
           data={selectedClassData}
@@ -14,25 +15,37 @@
           onrowselection={getSelectedRow}
           max-row-selection="1"
         >
-        </lightning-datatable>
+        </lightning-datatable>  
+      </div>
       </lightning-layout-item>
+      <template if:true={methodInfo}>
       <lightning-layout-item flexibility="auto" padding="around-small">
+      
         <div class="slds-m-top_medium slds-m-bottom_x-medium">
           <h2 class="slds-text-heading_small slds-m-bottom_medium">Endpoint</h2>
         </div>
-        <template if:true={methodInfo}>
-          <p>{methodInfo.endpoint}</p>
-        </template>
-      </lightning-layout-item>
-      <lightning-layout-item flexibility="auto" padding="around-small">
-        <div class="slds-m-top_medium slds-m-bottom_x-large">
-          <h2 class="slds-text-heading_small slds-m-bottom_medium">
-            Request Body
-          </h2>
+        <div class ="slds-p-left_small">
+          <p>{methodInfo.type} &nbsp; {methodInfo.endpoint}</p>
         </div>
       </lightning-layout-item>
       <lightning-layout-item flexibility="auto" padding="around-small">
-        <div class="slds-m-top_medium slds-m-bottom_x-large">
+        <div class="slds-m-top_medium slds-m-bottom_medium">
+          <h2 class="slds-text-heading_small slds-m-bottom_medium">
+            Request Body
+          </h2>
+          <div class ="slds-p-left_small">
+          <p>Available Method Parameters:</p>
+          <ul class="slds-has-dividers_bottom-space">
+            <template for:each={organisedParams} for:item="param">
+            <li key={param} class="slds-item">{param}</li>
+            </template>
+          </ul>
+          </div>
+            
+        </div>
+      </lightning-layout-item>
+      <lightning-layout-item flexibility="auto" padding="around-small">
+        <div class="slds-m-top_medium slds-m-bottom_medium">
           <h2 class="slds-text-heading_small slds-m-bottom_medium">
             Response Format
           </h2>
@@ -50,11 +63,21 @@
           </lightning-tab>
         </lightning-tabset>
       </lightning-layout-item>
+    </template>
+    <template if:false={methodInfo}>
+      <div class="slds-m-top_medium slds-m-bottom_x-large">
+        <h2 class="slds-text-heading_small slds-m-bottom_medium">
+          Select one of the available REST webservices to use it.
+        </h2>
+      </div>
+    </template>
     </div>
   </template>
   <template if:false={selectedApexClass}>
-    <div>
-      <i><h2 class="slds-text-heading_small slds-m-bottom_medium">Select a REST resource to view documentation</h2></i>
+    <div class="slds-m-top_medium slds-m-bottom_x-large">
+      <h2 class="slds-text-heading_small slds-m-bottom_medium">
+        Select a REST resource from the list to view documentation
+      </h2>
     </div>
   </template>
 </template>
