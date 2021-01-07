@@ -1,4 +1,5 @@
 import { LightningElement, api } from 'lwc';
+import noParamsCustomLabel from "@salesforce/label/c.Value_For_No_Params";
 
 const columns = [
     { label: 'Method', fieldName: 'type', type: 'text', initialWidth: 90 },
@@ -14,6 +15,7 @@ export default class RestDocumentation extends LightningElement {
     columns = columns;
     methodInfo;
     organisedParams = [];
+    isModalOpen = false;
     jsonSuccessContent = JSON.stringify(
         {
             status: 'success',
@@ -104,7 +106,7 @@ export default class RestDocumentation extends LightningElement {
             methodDef.indexOf(')')
         );
         if (methodParams === ' ' || methodParams == null || methodParams === '') {
-            methodParams = 'No specified parameters';
+            methodParams = noParamsCustomLabel;
         }
         return methodParams;
     }
@@ -147,5 +149,12 @@ export default class RestDocumentation extends LightningElement {
         this.organisedParams = this.organisedParams.map(x => x.trim());
         
         }
+    }
+
+    handleCloseModal(){
+        this.isModalOpen = false;
+    }
+    handleOpenModal(){
+        this.isModalOpen = true;
     }
 }

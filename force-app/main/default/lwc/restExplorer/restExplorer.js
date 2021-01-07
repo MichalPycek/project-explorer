@@ -26,4 +26,6 @@ export default class RestExplorer extends LightningElement {
         this.unselectDatatable = true;
         this.template.querySelector("c-rest-documentation").handleRowUnselection();
     }
+
+    
 }

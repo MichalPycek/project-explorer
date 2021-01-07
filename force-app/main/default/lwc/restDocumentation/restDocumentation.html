@@ -7,7 +7,7 @@
             Available REST Methods
           </h2>
         </div>
-        <div class="slds-p-left_small">
+        <div class="slds-p-left_small slds-m-bottom_small">
         <lightning-datatable
           key-field="methodDef"
           data={selectedClassData}
@@ -17,6 +17,7 @@
         >
         </lightning-datatable>  
       </div>
+      <button class="slds-button slds-button_neutral" onclick={handleOpenModal}>View Class Body</button>
       </lightning-layout-item>
       <template if:true={methodInfo}>
       <lightning-layout-item flexibility="auto" padding="around-small">
@@ -34,12 +35,21 @@
             Request Body
           </h2>
           <div class ="slds-p-left_small">
-          <p>Available Method Parameters:</p>
-          <ul class="slds-has-dividers_bottom-space">
-            <template for:each={organisedParams} for:item="param">
-            <li key={param} class="slds-item">{param}</li>
-            </template>
-          </ul>
+          <label>Available Method Parameters:</label>
+          
+            
+          <lightning-accordion active-section-name="methodDocumentation">
+            <lightning-accordion-section name="endpoint" label="Endpoint">{methodInfo.type} &nbsp; {methodInfo.endpoint}</lightning-accordion-section>
+            <lightning-accordion-section name="available parameters" label="Available Parameters">
+              <ul>
+                <template for:each={organisedParams} for:item="param">
+                  <li key={param} class="slds-item">{param}</li>
+                  </template>
+              </ul>>
+            </lightning-accordion-section>
+            <lightning-accordion-section name="C" label="Accordion Title C">This is the content area for section C</lightning-accordion-section>
+          </lightning-accordion> 
+         
           </div>
             
         </div>
@@ -80,4 +90,11 @@
       </h2>
     </div>
   </template>
+  <template if:true={isModalOpen}>
+    <c-rest-modal
+    onmodalclosed={handleCloseModal}
+    selected-apex-class={selectedApexClass}
+    >
+  </c-rest-modal>
+</template>
 </template>

@@ -16,6 +16,7 @@
                 label="Endpoint"
                 value={selectedMethodEndpoint}
                 onchange={handleEndpointChange}
+                required
             >
             </lightning-input>
         </lightning-layout-item>
@@ -26,6 +27,7 @@
                     maxlength="300"
                     value={requestBody}
                     onchange={handleBodyChange}
+                    required
                 ></lightning-textarea>
             </template>
         </lightning-layout-item>

@@ -9,6 +9,9 @@ const OPTIONS = [
     { label: 'DELETE', value: 'DELETE' }
 ];
 
+const GETMETHODSTRING = 'GET';
+const DELETEMETHODSTRING = 'DELETE';
+
 const UNSELECTDATATABLEEVENT = new CustomEvent('unselectdatatable');
 
 export default class RestPlayground extends LightningElement {
@@ -83,11 +86,8 @@ export default class RestPlayground extends LightningElement {
     }
 
     checkMethodHasBody(selectedMethod) {
-        if (selectedMethod === 'GET' || selectedMethod === 'DELETE') {
-            return false;
-        } else {
-            return true;
-        }
+        return !(selectedMethod === GETMETHODSTRING || selectedMethod === DELETEMETHODSTRING);
+         
     }
 
     async getResponseData() {
@@ -105,6 +105,7 @@ export default class RestPlayground extends LightningElement {
             })
             .catch((error) => {
                 this.error = error;
+                this.notifySpinnerLoading(false);
             });
 
         this.waitningForResponse = false;

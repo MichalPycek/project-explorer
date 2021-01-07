@@ -17,7 +17,8 @@ export default class ClassList extends LightningElement {
                     return {
                         label: apexClass.Name,
                         value: apexClass.Id,
-                        body: apexClass.Body.toLowerCase()
+                        body: apexClass.Body.toLowerCase(),
+                        bodyWithCase: apexClass.Body
                     };
                 });
         } else if (error) {
@@ -35,7 +36,8 @@ export default class ClassList extends LightningElement {
             detail: {
                 value: this.selectedApexClass.value,
                 label: this.selectedApexClass.label,
-                body: this.selectedApexClass.body
+                body: this.selectedApexClass.body,
+                bodyWithCase : this.selectedApexClass.bodyWithCase
             }
         });
         this.dispatchEvent(selectedClassEvent);
