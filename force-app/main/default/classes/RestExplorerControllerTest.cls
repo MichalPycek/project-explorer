@@ -25,4 +25,17 @@ private class RestExplorerControllerTest {
             'Lists of Apex Classes should have same length.'
         );
     }
+
+    @isTest
+    static void testGettingExceptionApexClasses() {
+        String filterVal = '/n';
+        List<ApexClass> actualClasses = new List<ApexClass>();
+        actualClasses = RestExplorerController.getAllApexClasses(filterVal);
+        List<ApexClass> expectedClasses = [SELECT Id FROM ApexClass WHERE Name LIKE '%Acc%'];
+        System.assertEquals(
+            expectedClasses.size(),
+            actualClasses.size(),
+            'Lists of Apex Classes should have same length.'
+        );
+    }
 }

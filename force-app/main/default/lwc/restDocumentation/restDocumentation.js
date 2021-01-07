@@ -9,11 +9,13 @@ const columns = [
 
 const METHOD_ANNOTATION = '@http';
 const CLASS_ANNOTATION = '@restresource';
+const JSONDES_CODE = 'json.deserialize';
 
 export default class RestDocumentation extends LightningElement {
     @api selectedApexClass;
     columns = columns;
     methodInfo;
+    sObjectPassed;
     organisedParams = [];
     isModalOpen = false;
     jsonSuccessContent = JSON.stringify(
@@ -65,6 +67,11 @@ export default class RestDocumentation extends LightningElement {
                         checkMultipleLineParams = false;
                     }
                     methodParams = this.appendParamsFromLine(line, methodParams);   
+                }
+
+                if(line.includes(JSONDES_CODE)){
+                    let wordsInLine = line.trim().split(' ');
+                    this.sObjectPassed = wordsInLine[0];
                 }
 
                 if (classEndpoint && methodType && checkMultipleLineParams==false) {

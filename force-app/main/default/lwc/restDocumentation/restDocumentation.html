@@ -8,79 +8,89 @@
           </h2>
         </div>
         <div class="slds-p-left_small slds-m-bottom_small">
-        <lightning-datatable
-          key-field="methodDef"
-          data={selectedClassData}
-          columns={columns}
-          onrowselection={getSelectedRow}
-          max-row-selection="1"
+          <lightning-datatable
+            key-field="methodDef"
+            data={selectedClassData}
+            columns={columns}
+            onrowselection={getSelectedRow}
+            max-row-selection="1"
+          >
+          </lightning-datatable>
+        </div>
+        <button
+          class="slds-button slds-button_neutral"
+          onclick={handleOpenModal}
         >
-        </lightning-datatable>  
-      </div>
-      <button class="slds-button slds-button_neutral" onclick={handleOpenModal}>View Class Body</button>
+          View Class Body
+        </button>
       </lightning-layout-item>
       <template if:true={methodInfo}>
-      <lightning-layout-item flexibility="auto" padding="around-small">
-      
-        <div class="slds-m-top_medium slds-m-bottom_x-medium">
-          <h2 class="slds-text-heading_small slds-m-bottom_medium">Endpoint</h2>
-        </div>
-        <div class ="slds-p-left_small">
-          <p>{methodInfo.type} &nbsp; {methodInfo.endpoint}</p>
-        </div>
-      </lightning-layout-item>
-      <lightning-layout-item flexibility="auto" padding="around-small">
-        <div class="slds-m-top_medium slds-m-bottom_medium">
-          <h2 class="slds-text-heading_small slds-m-bottom_medium">
-            Request Body
-          </h2>
-          <div class ="slds-p-left_small">
-          <label>Available Method Parameters:</label>
-          
-            
-          <lightning-accordion active-section-name="methodDocumentation">
-            <lightning-accordion-section name="endpoint" label="Endpoint">{methodInfo.type} &nbsp; {methodInfo.endpoint}</lightning-accordion-section>
-            <lightning-accordion-section name="available parameters" label="Available Parameters">
-              <ul>
-                <template for:each={organisedParams} for:item="param">
-                  <li key={param} class="slds-item">{param}</li>
-                  </template>
-              </ul>>
-            </lightning-accordion-section>
-            <lightning-accordion-section name="C" label="Accordion Title C">This is the content area for section C</lightning-accordion-section>
-          </lightning-accordion> 
-         
+        <lightning-layout-item flexibility="auto" padding="around-small">
+          <div class="slds-m-top_large slds-m-bottom_medium">
+            <lightning-accordion allow-multiple-sections-open>
+              <lightning-accordion-section
+                name="requestHeader"
+                label="Request Headers"
+              >
+                <div class="slds-p-left_small">
+                  <p>Content-Type: application/json; charset=UTF-8</p>
+                  <p>Accept: application/json</p>
+                </div>
+              </lightning-accordion-section>
+              <lightning-accordion-section name="endpoint" label="Endpoint">
+                <div class="slds-p-left_small">
+                  {methodInfo.type} &nbsp; {methodInfo.endpoint}
+                </div>
+              </lightning-accordion-section>
+              <lightning-accordion-section
+                name="available parameters"
+                label="Available Parameters"
+              >
+                <div class="slds-p-left_small">
+                  <ul>
+                    <template for:each={organisedParams} for:item="param">
+                      <li key={param} class="slds-item">{param}</li>
+                    </template>
+                  </ul>
+                </div>
+              </lightning-accordion-section>
+              <template if:true={sObjectPassed}>
+              <lightning-accordion-section
+                name="sObject"
+                label="Passed sObject">
+                <div class="slds-p-left_small">{sObjectPassed}</div>
+              </lightning-accordion-section>
+            </template>
+            </lightning-accordion>
           </div>
-            
-        </div>
-      </lightning-layout-item>
-      <lightning-layout-item flexibility="auto" padding="around-small">
-        <div class="slds-m-top_medium slds-m-bottom_medium">
-          <h2 class="slds-text-heading_small slds-m-bottom_medium">
-            Response Format
-          </h2>
-        </div>
-        <lightning-tabset>
-          <lightning-tab label="200">
-            <pre><code>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="around-small">
+          <div class="slds-m-bottom_medium">
+            <h2 class="slds-text-heading_small slds-m-bottom_medium">
+              Response Format
+            </h2>
+          </div>
+          <lightning-tabset>
+            <lightning-tab label="200">
+              <pre><code>
                     [{jsonSuccessContent}]
                     </code></pre>
-          </lightning-tab>
-          <lightning-tab label="400" title="2nd tab extended title">
-            <pre><code>
+            </lightning-tab>
+            <lightning-tab label="400" title="2nd tab extended title">
+              <pre><code>
                     [{jsonErrorContent}]
                     </code></pre>
-          </lightning-tab>
-        </lightning-tabset>
-      </lightning-layout-item>
-    </template>
-    <template if:false={methodInfo}>
-      <div class="slds-m-top_medium slds-m-bottom_x-large">
-        <h2 class="slds-text-heading_small slds-m-bottom_medium">
-          Select one of the available REST webservices to use it.
-        </h2>
-      </div>
-    </template>
+            </lightning-tab>
+          </lightning-tabset>
+        </lightning-layout-item>
+      </template>
+      <template if:false={methodInfo}>
+        <div class="slds-m-top_medium slds-m-bottom_x-large">
+          <h2 class="slds-text-heading_small slds-m-bottom_medium">
+            Select one of the available REST webservices to view documentation.
+          </h2>
+        </div>
+      </template>
     </div>
   </template>
   <template if:false={selectedApexClass}>
@@ -92,9 +102,9 @@
   </template>
   <template if:true={isModalOpen}>
     <c-rest-modal
-    onmodalclosed={handleCloseModal}
-    selected-apex-class={selectedApexClass}
+      onmodalclosed={handleCloseModal}
+      selected-apex-class={selectedApexClass}
     >
-  </c-rest-modal>
-</template>
+    </c-rest-modal>
+  </template>
 </template>

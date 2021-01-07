@@ -4,7 +4,7 @@ public with sharing class RestCalloutBuilder {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         HttpResponse response = new HttpResponse();
-        String sfdcBaseURL = 'callout:workbenchNE/' + endpoint;
+        String sfdcBaseURL = 'callout:Rest_Callout_NC/' + endpoint;
         request.setEndpoint(sfdcBaseURL);
         request.setMethod(type.trim());
         if (type == 'PUT' || type == 'POST' || type == 'PATCH') {
@@ -12,16 +12,10 @@ public with sharing class RestCalloutBuilder {
         }
         request.setHeader('Content-Type', 'application/json;charset=UTF-8');
         Map<String, String> responseValues = new Map<String, String>();
-
-        try {
-            response = http.send(request);
-            responseValues.put('body', response.getBody());
-            responseValues.put('statusCode', string.valueOf(response.getStatusCode()));
-            return responseValues;
-        } catch (Exception e) {
-            responseValues.put('body', response.getBody());
-            responseValues.put('statusCode', e + ' ' + string.valueOf(response.getStatusCode()));
-            return responseValues;
-        }
+   
+        response = http.send(request);         
+        responseValues.put('body', response.getBody());
+        responseValues.put('statusCode', string.valueOf(response.getStatusCode()));
+        return responseValues;
     }
 }
