@@ -40,6 +40,7 @@ export default class RestDocumentation extends LightningElement {
     }
 
     get selectedClassData() {
+        this.sObjectPassed = undefined;
         let tempDataArray = [];  
         if (this.selectedApexClass) {
             const allLines = this.selectedApexClass.body.split('\n');
