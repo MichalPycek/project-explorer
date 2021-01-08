@@ -1,6 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 import noParamsCustomLabel from "@salesforce/label/c.Value_For_No_Params";
 
+
 const columns = [
     { label: 'Method', fieldName: 'type', type: 'text', initialWidth: 90 },
     { label: 'Return Type', fieldName: 'returnValue', type: 'text', initialWidth: 130 },
@@ -73,6 +74,7 @@ export default class RestDocumentation extends LightningElement {
                 if(line.includes(JSONDES_CODE)){
                     let wordsInLine = line.trim().split(' ');
                     this.sObjectPassed = wordsInLine[0];
+                    this.sObjectPassed = this.sObjectPassed.charAt(0).toUpperCase() + this.sObjectPassed.slice(1);
                 }
 
                 if (classEndpoint && methodType && checkMultipleLineParams==false) {
