@@ -19,7 +19,8 @@
                 <b><p>{selectedApexClass.label}</p></b>
             </header>
             <div class="slds-modal__content slds-p-around_medium slds-modal_monaco-style" id="modal-content-id-1">
-                <lightning-formatted-text value={selectedApexClass.bodyWithCase}></lightning-formatted-text>     
+                <p>{selectedApexClass.bodyWithCase}</p>
+                
             </div>
             <footer class="slds-modal__footer">
                 <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>

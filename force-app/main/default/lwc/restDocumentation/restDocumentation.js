@@ -1,4 +1,4 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import noParamsCustomLabel from "@salesforce/label/c.Value_For_No_Params";
 
 const columns = [

@@ -1,56 +1,56 @@
 <template>
-    <lightning-layout multiple-rows>
-        <lightning-layout-item size="12" padding="around-small">
-            <b><label class="slds-form-element__label">Method</label></b>
-            <lightning-radio-group
-                name="radioGroup"
-                options={options}
-                value={selectedMethodType}
-                type="radio"
-                onchange={handleRadioChange}
-            ></lightning-radio-group>
-        </lightning-layout-item>
-        <lightning-layout-item size="12" padding="around-small">
-            <lightning-input
-                type="text"
-                label="Endpoint"
-                value={selectedMethodEndpoint}
-                onchange={handleEndpointChange}
-                required
-            >
-            </lightning-input>
-        </lightning-layout-item>
-        <lightning-layout-item size="12" padding="around-small">
-            <template if:true={methodHasBody}>
-                <lightning-textarea
-                    label="Request body"
-                    maxlength="300"
-                    value={requestBody}
-                    onchange={handleBodyChange}
-                    required
-                ></lightning-textarea>
-            </template>
-        </lightning-layout-item>
-        <lightning-layout-item>
-            <div class="slds-m-around_medium"></div>
-        </lightning-layout-item>
-    </lightning-layout>
+  <lightning-layout multiple-rows>
     <lightning-layout-item size="12" padding="around-small">
-        <template if:false={waitningForResponse}>
-            <button class="slds-button slds-button_brand" onclick={getResponseData}>Send Request</button>
-        </template>
+      <b><label class="slds-form-element__label">Method</label></b>
+      <lightning-radio-group
+        name="radioGroup"
+        options={options}
+        value={selectedMethodType}
+        type="radio"
+        onchange={handleRadioChange}
+      ></lightning-radio-group>
     </lightning-layout-item>
+    <lightning-layout-item size="12" padding="around-small">
+      <lightning-input
+        type="text"
+        label="Endpoint"
+        value={selectedMethodEndpoint}
+        onchange={handleEndpointChange}
+      >
+      </lightning-input>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" padding="around-small">
+      <template if:true={methodHasBody}>
+        <lightning-textarea
+          label="Request body"
+          maxlength="300"
+          value={requestBody}
+          onchange={handleBodyChange}
+        ></lightning-textarea>
+      </template>
+    </lightning-layout-item>
+    <lightning-layout-item size="12" padding="around-small">
+      <template if:false={waitningForResponse}>
+        <button class="slds-button slds-button_brand" onclick={getResponseData}>
+          Send Request
+        </button>
+      </template>
+    </lightning-layout-item>
+    <template if:true={error}>
+      <b><p style="color:red;">{error}</p></b>
+    </template>
     <br />
     <lightning-layout-item padding="around-small">
-        <p>Status Code:</p>
-        <pre><code>
+      <p>Status Code:</p>
+      <pre><code>
                     {responseStatusCode}
             </code></pre>
-        <br />
-        <p>Response Body:</p>
-        <pre>
+      <br />
+      <p>Response Body:</p>
+      <pre>
                     {responseBody}
             </pre
-        >
+      >
     </lightning-layout-item>
+  </lightning-layout>
 </template>

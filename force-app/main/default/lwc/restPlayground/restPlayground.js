@@ -82,6 +82,7 @@ export default class RestPlayground extends LightningElement {
     submitDetails() {
         this.responseBody = this.response.body;
         this.responseStatusCode = this.response.statusCode;
+        this.error = undefined;
         this.notifySpinnerLoading(false);
     }
 
@@ -90,7 +91,15 @@ export default class RestPlayground extends LightningElement {
          
     }
 
+    checkFormValidity(){
+        return (!this.requestBody && this.methodHasBody) || !this.selectedMethodEndpoint || !this.selectedMethodType;
+    }
+
     async getResponseData() {
+
+        if(this.checkFormValidity()){
+            this.error = 'Opps.. make sure you fill out the form before sending the request';
+        } else {
         this.notifySpinnerLoading(true);
         this.waitningForResponse = true;
         await makeRestCallout({
@@ -109,6 +118,7 @@ export default class RestPlayground extends LightningElement {
             });
 
         this.waitningForResponse = false;
+    }
     }
 
     notifySpinnerLoading(isLoading) {

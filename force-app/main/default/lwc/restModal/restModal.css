@@ -3,6 +3,10 @@
     color: rgb(212, 212, 212);
     font-family: "Consolas";
     font-size: 16;
-    font-weight: "normal";
-   
+    font-weight: normal;
+    white-space: pre-wrap;
+    white-space: pre-line;
+    /* tab-size: 4; */
+    
+    
 }
