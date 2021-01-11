@@ -25,11 +25,12 @@ export default class RestPlayground extends LightningElement {
     returnValue;
     requestBody;
 
-    responseBody = 'No Body';
-    responseStatusCode = 'No Status Code';
+    responseBody;
+    responseStatusCode;
 
     @track response;
     @track error;
+
 
     get selectedMethodType() {
         if (this.selectedApexMethod) {

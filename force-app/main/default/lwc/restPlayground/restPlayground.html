@@ -37,20 +37,18 @@
       </template>
     </lightning-layout-item>
     <template if:true={error}>
-      <b><p style="color:red;">{error}</p></b>
+      <b><p style="color: red">{error}</p></b>
     </template>
     <br />
-    <lightning-layout-item padding="around-small">
+    <lightning-layout-item size = "12" padding="around-small">
+      <template if:true={responseBody}>
       <p>Status Code:</p>
-      <pre><code>
-                    {responseStatusCode}
-            </code></pre>
+      <pre><code> {responseStatusCode} </code></pre>
       <br />
       <p>Response Body:</p>
-      <pre>
-                    {responseBody}
-            </pre
-      >
+        <pre><code>{responseBody}</code></pre>
+      </template>
     </lightning-layout-item>
   </lightning-layout>
+
 </template>
